@@ -1,5 +1,5 @@
 require(['libs/text!header.html','libs/text!home.html','libs/text!footer.html'], function ( headerTpl, homeTpl, footerTpl) {
-  Parse.initialize("Parse-App-Key", "Parse-JS-Key");
+  Parse.initialize("ypbtLkCGDPQquYoqR4l3Vtyurd1PdJWyHddk3lI4", "qIovwT5luZTxlSozfPI4Jb4e8oQVXwz341hDzUtw");
   var ApplicationRouter = Backbone.Router.extend({
     routes: {
       "": "home",
