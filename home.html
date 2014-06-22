@@ -1,0 +1,46 @@
+<div class="row" id="message-board">
+  <div class="col-xs-12">
+    <table class="table table-bordered table-striped">
+      <caption>Chat</caption>
+      <thread>
+        <tr>
+          <th class="col-xs-2">Username</th>
+          <th>Messages</th>
+        </tr>
+      </thread>
+      <tbody>
+        <% if (models.length > 0) {
+          _.each(models, function (value, key, list) { %>
+            <tr>
+              <td> <%= value.attributes.message %></td>
+              <td> <%= value.attributes.message %></td>
+            </tr>
+            <% });
+          }
+          else { %>
+            <tr>
+              <td colspan="2">No messages yet</td>
+            </tr>
+            <%}%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row" id="new-message">
+      <div class="col-xs-12">
+        <form class="well form-inline">
+          <input type="text" 
+          name="username"
+          class="input-small"
+          placeholder="Username"/>
+      
+          <input type="text"
+          name="message"
+          class="input-small"
+          placeholder="Message Text" />
+      
+          <a id="send" class="btn btn-default">SEND</a>
+        </form>
+      </div>
+    </div>
