@@ -1,5 +1,5 @@
+var URL = "http://boiling-anchorage-3138.herokuapp.com/";
 require(['libs/text!header.html','libs/text!home.html','libs/text!footer.html'], function ( headerTpl, homeTpl, footerTpl) {
-  Parse.initialize("ypbtLkCGDPQquYoqR4l3Vtyurd1PdJWyHddk3lI4", "qIovwT5luZTxlSozfPI4Jb4e8oQVXwz341hDzUtw");
   var ApplicationRouter = Backbone.Router.extend({
     routes: {
       "": "home",
@@ -41,11 +41,12 @@ require(['libs/text!header.html','libs/text!home.html','libs/text!footer.html'],
       $(this.el).html(_.template(this.template));
     }
   });
-  Message = Parse.Object.extend({
-    className: "MessageBoard"
+  Message = Backbone.Model.extend({
+    url: URL + "messages/create.json"
   });
-  MessageBoard = Parse.Collection.extend({
-    model: Message
+  MessageBoard = Backbone.Collection.extend({
+    model: Message,
+    url: URL + "messages/list.json"
   });
   HomeView = Backbone.View.extend({
     el: "#content",
@@ -73,7 +74,7 @@ require(['libs/text!header.html','libs/text!home.html','libs/text!footer.html'],
     saveMessage: function() {
       var newMessageForm=$("#new-message");
       var username = newMessageForm.find('[name="username"]').val();
-      var message = newMessageForm.find('[name=message]').val();
+      var message = newMessageForm.find('[name="message"]').val();
       this.collection.add({
         "username": username,
         "message": message
