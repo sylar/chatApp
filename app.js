@@ -50,29 +50,32 @@ require(['libs/text!header.html', 'libs/text!home.html', 'libs/text!footer.html'
 		el: "#content",
 		template: homeTpl,
 		events: {
-			"click #send": "saveMessage"
+			'click #send': 'saveMessage'
 		},
 
 		initialize: function() {
 			this.collection = new MessageBoard();
-			this.collection.bind("all", this.render, this);
+      this.collection.bind("all", this.render, this);
 			this.collection.fetch();
-			this.collection.on("add", function(message) {
-				message.save(null, {
-					success: function(message) {
-						console.log('saved '+message);
-					},
-					error: function(message) {
-						console.log('error');
-					}
-				});
-				console.log('saved'+message);
-			})
-		},
+      this.collection.on('change', this.render, this);
+      this.collection.on('add', this.render, this);
+		},  
 		saveMessage: function(){
+      this.render;
 			var newMessageForm=$("#new-message");
-			var username=newMessageForm.find('[name="username"]').attr('value');
-			var message=newMessageForm.find('[name="message"]').attr('value');
+			var username=newMessageForm.find('[name="username"]').val();
+			var message=newMessageForm.find('[name="message"]').val();
+      this.collection.on("add", function(message) {
+        message.save(null, {
+          success: function(message) {
+            console.log('saved '+message);
+          },
+          error: function(message) {
+            console.log('error');
+          }
+        });
+        console.log('saved'+message);
+      })
 			this.collection.add({
 				"username": username,
 				"message": message
